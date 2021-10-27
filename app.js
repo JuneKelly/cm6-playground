@@ -15,24 +15,25 @@ let view = new EditorView({
 window.__cm6 = {
   startState,
   view,
-  insertChar(position, ch) {
+  insertText(position, ch) {
     if (position < 0) {
-      position = view.state.doc.length + position
+      position = this.view.state.doc.length + position
+    } else if (position === 'end') {
+      position = this.view.state.doc.length
+    } else if (position === 'start') {
+      position = 0
     }
-    if (position == -0) {
-      position = view.state.doc.length
-    }
-    const transaction = view.state.update({
+    const transaction = this.view.state.update({
       changes: { from: position, insert: ch }
     })
     console.log(">> insertChar, transaction: ", transaction)
-    view.dispatch(transaction)
+    this.view.dispatch(transaction)
   },
-  prependChar(ch) {
-    this.insertChar(0, ch)
+  prependText(ch) {
+    this.insertText(0, ch)
   },
-  appendChar(ch) {
-    this.insertChar(-0, ch)
+  appendText(ch) {
+    this.insertText('end', ch)
   }
 }
 
