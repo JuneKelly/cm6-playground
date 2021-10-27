@@ -1,10 +1,8 @@
-import {EditorState} from "@codemirror/state"
-import {EditorView, keymap} from "@codemirror/view"
-import {defaultKeymap} from "@codemirror/commands"
+import { basicSetup, EditorState, EditorView } from '@codemirror/basic-setup';
 
 let startState = EditorState.create({
   doc: "Hello World",
-  extensions: [keymap.of(defaultKeymap)]
+  extensions: [basicSetup]
 })
 
 let view = new EditorView({
@@ -13,6 +11,7 @@ let view = new EditorView({
 })
 
 window.__cm6 = {
+  EditorState,
   startState,
   view,
   insertText(position, ch) {
